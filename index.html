@@ -53,7 +53,7 @@ app.controller("gameboard", ["$scope", function($scope){
   }
       while(c<100){
         $(".player1").append($scope.cell)
-        $('.class').last().attr('id',id[c])
+        $('.cell').last().attr('id',id[c])
         console.log($('.class').last())
         c++
       }
