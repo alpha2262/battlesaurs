@@ -2,9 +2,65 @@
 <html>
 <head>
   <title>Battlesaurs</title>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.min.js"></script>
+<style media="screen">
+body {
+    width: 1600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center
+}
+
+  .cell {
+    width: 80px;
+    height: 80px;
+    margin: 2px;
+    border: 2px solid aqua;
+    padding: 5px;
+    float: left;
+  }
+  .player1{
+    width: 100vw;
+  }
+</style>
+
 </head>
 
-<body>
+<body ng-app="battlesaurs" ng-controller="gameboard">
   <h1>Hello World</h1>
+  <button ng-click="board()"></button>
+
+<div class="player1"></div>
+
+<script>
+
+var app = angular.module("battlesaurs",[])
+
+app.controller("gameboard", ["$scope", function($scope){
+  $scope.cell = "<div class='cell'> </div>";
+  $scope.board = function(){
+    c=0;
+    var abcs = 'ABCDEFGHIJ';
+    var abcArray= abcs.split('');
+    var nums = [1,2,3,4,5,6,7,8,9,10];
+    var id = [];
+    for (var i=0; i < abcArray.length; i++){
+      for (var f=0; f < nums.length; f++){
+        id.push((abcArray[i]+nums[f]).toString());
+    }
+  }
+      while(c<100){
+        $(".player1").append($scope.cell)
+        $('.class').last().attr('id',id[c])
+        console.log($('.class').last())
+        c++
+      }
+    }
+
+}])
+
+</script>
 </body>
 </html>
