@@ -20,12 +20,13 @@ io.on('connection', function(socket){
   socket.on('send:chatmessage', function(msg){
     io.emit('posting:chatmessage', msg);
   });
+
   socket.on('send:litebrite', function(lite){
     console.log(lite)
-    io.emit('posting:litebrite', lite);
+    socket.broadcast.emit('posting:litebrite', lite);
+    // io.emit('posting:litebrite', lite);
   })
 });
-
 
 
 

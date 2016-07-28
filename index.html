@@ -107,18 +107,21 @@ app.controller("gameboard", ["$scope", function($scope){
 
 <script>
 $(document).ready(function(){
-  $('.cell').click(function(){
+  $('.cell').on('click', function(){
     $(this).css("background-color", "red");
-var id  = $(this).attr('id');
-var color = $(this).css("background-color")
+
+    // var id  = $(this).attr('id');
+    // var color = $(this).css("background-color")
 
     console.log($(this).attr('id'))
-    socket.emit('send:litebrite', $(this).css('background-color'), $(this).attr('id'));
+    socket.emit('send:litebrite', {id: event.target})
 
     socket.on('posting:litebrite', function(lite){
-      $(this).css("background-color", lite);
+      $(lite.id).trigger('click');
 
-})
+
+
+    })
 
     // return false;
   })
