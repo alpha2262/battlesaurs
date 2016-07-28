@@ -19,6 +19,7 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function () {
+
+http.listen(3300, function () {
   console.log("This shit is live on 3000 yo.");
 })
