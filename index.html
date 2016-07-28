@@ -2,55 +2,77 @@
 <html>
 <head>
   <title>Battlesaurs</title>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.min.js"></script>
-<style media="screen">
-body {
-    width: 1600px;
+  <style media="screen">
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
     display: flex;
     flex-direction: row;
-    justify-content: center
-}
-
-  .cell {
-    width: 80px;
-    height: 80px;
-    margin: 2px;
-    border: 2px solid aqua;
-    padding: 5px;
-    float: left;
-  }
-  .player1{
-    width: 100vw;
-  }
-</style>
-
-</head>
-
-<body ng-app="battlesaurs" ng-controller="gameboard">
-  <h1>Hello World</h1>
-  <button ng-click="board()"></button>
-
-<div class="player1"></div>
-
-<script>
-
-var app = angular.module("battlesaurs",[])
-
-app.controller("gameboard", ["$scope", function($scope){
-  $scope.cell = "<div class='cell'> </div>";
-  $scope.board = function(){
-    c=0;
-    var abcs = 'ABCDEFGHIJ';
-    var abcArray= abcs.split('');
-    var nums = [1,2,3,4,5,6,7,8,9,10];
-    var id = [];
-    for (var i=0; i < abcArray.length; i++){
-      for (var f=0; f < nums.length; f++){
-        id.push((abcArray[i]+nums[f]).toString());
+    justify-content: center;
+    font: 20px Helvetica, Arial;
+    background-image: url("bg.jpg");
+    background-color: chartreuse;}
+    #chatbox {position: relative; float: right; height: 700px; border: 2px solid black; background-color: white; margin: 30px;}
+    form {  background: darkgrey; padding: 8px; position: absolute; bottom: 0;}
+    form input { border: 0; padding: 10px; width: 66%; margin-right: .1%; }
+    form button { width: 30%; background: lightsalmon; border: none; padding: 10px; }
+    #messages { list-style-type: none; margin: 0; padding: 0; width: 200px;}
+    #messages li { padding: 5px 10px; }
+    #messages li:nth-child(odd) { background: #eee; }
+    .cell {
+      width: 25px;
+      height: 25px;
+      margin: 2px;
+      border: 2px solid aqua;
+      padding: 5px;
+      float: left;
+    }
+    .player1{
+      width: 230px;
     }
   }
+  </style>
+</head>
+<body ng-app="battlesaurs" ng-init="board()" ng-controller="gameboard">
+  <h1>BATTLESAURS!!!</h1>
+
+
+  <div class="player1"></div>
+
+  <div id ="chatbox">
+    <ul id="messages">
+      <!-- Prevent error due to duplicate messages by tracking each message via unique index -->
+      <li data-ng-repeat="message in vm.messages track by $index">THIS IS MESSAGE</li>
+    </ul>
+    <form data-ng-submit="vm.sendMessage()">
+      <input data-ng-model="vm.newMessage" autocomplete="off" />
+      <button>Send</button>
+    </form>
+  </div>
+
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.min.js"></script>
+
+
+  <script>
+
+  // var socket = io();
+
+  var app = angular.module("battlesaurs",[])
+
+  app.controller("gameboard", ["$scope", function($scope){
+    $scope.cell = "<div class='cell'> </div>";
+    $scope.board = function(){
+      c=0;
+      var abcs = 'ABCDEFGHIJ';
+      var abcArray= abcs.split('');
+      var nums = [1,2,3,4,5,6,7,8,9,10];
+      var id = [];
+      for (var i=0; i < abcArray.length; i++){
+        for (var f=0; f < nums.length; f++){
+          id.push((abcArray[i]+nums[f]).toString());
+        }
+      }
       while(c<100){
         $(".player1").append($scope.cell)
         $('.cell').last().attr('id',id[c])
@@ -58,9 +80,9 @@ app.controller("gameboard", ["$scope", function($scope){
         c++
       }
     }
+  }])
 
-}])
+  </script>
 
-</script>
 </body>
 </html>

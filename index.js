@@ -9,9 +9,15 @@ var Message = mongoose.model("Message", new mongoose.Schema({
   text: String
 }));
 
-app.get('/', function(req, res){
-  res.sendfile('index.html')
-})
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket){
+  socket.on('send:chatmessage', function(msg){
+    io.emit('posting:chatmessage', msg);
+  });
+});
 
 
 http.listen(3300, function () {
