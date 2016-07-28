@@ -1,14 +1,7 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-// var mongoose = require('mongoose');
 
-
-
-// mongoose.connect("mongodb://localhost/battlesaurs");
-// var Message = mongoose.model("Message", new mongoose.Schema({
-//   text: String
-// }));
 
 app.get("/", function (req, res) {
   console.log("connected to index.html")
@@ -21,14 +14,10 @@ io.on('connection', function(socket){
     io.emit('posting:chatmessage', msg);
   });
 
-  socket.on('send:litebrite', function(lite){
-    console.log(lite)
-    socket.broadcast.emit('posting:litebrite', lite);
-    // io.emit('posting:litebrite', lite);
-  })
+  socket.on('send:litebrite', function(data){
+    io.emit('post:litebrite', data);
+  });
 });
-
-
 
 
 http.listen(3300, function () {
